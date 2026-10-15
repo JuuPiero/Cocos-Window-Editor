@@ -1,1 +1,1 @@
-"use strict";module.exports={open_panel:"默认面板",send_to_panel:"发送消息给面板",description:"含有一个基于Vue3.x开发的面板的扩展"};
+"use strict";module.exports={description:"在项目中编写 Unity 风格的编辑器窗口（EditorWindow + 即时模式 GUI）。",open_panel:"编辑器窗口",slot_default:"编辑器窗口",slot_window_2:"编辑器窗口 2",slot_window_3:"编辑器窗口 3",slot_window_4:"编辑器窗口 4"};

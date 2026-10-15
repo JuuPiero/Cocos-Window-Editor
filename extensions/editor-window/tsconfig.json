@@ -1,11 +1,20 @@
 {
     "extends": "./base.tsconfig.json",
     "compilerOptions": {
-        "outDir": "./dist",
-        "rootDir": "./source",
+        "noEmit": true,
+        "rootDir": ".",
+        "lib": ["ES2019", "DOM", "DOM.Iterable"],
         "types": [
             "node",
             "@cocos/creator-types/editor",
-        ]
-    }
+        ],
+        // The runtime (assets/) is type-checked here against small stubs of 'cc'.
+        "paths": {
+            "cc": ["./tests/stubs/cc.ts"],
+            "cc/env": ["./tests/stubs/cc-env.ts"]
+        }
+    },
+    "include": ["source/**/*.ts", "tests/**/*.ts", "assets/**/*.ts"],
+    // The preview harness bundles the project's demo windows (checked against the real 'cc' separately).
+    "exclude": ["tests/preview"]
 }

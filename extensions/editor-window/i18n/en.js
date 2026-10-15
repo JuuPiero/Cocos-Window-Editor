@@ -1,1 +1,1 @@
-"use strict";module.exports={open_panel:"Default Panel",send_to_panel:"Send message to Default Panel",description:"Extension with a panel based on Vue3.x"};
+"use strict";module.exports={description:"Unity-style editor windows written in your project (EditorWindow + immediate-mode GUI).",open_panel:"Editor Windows",slot_default:"Editor Window",slot_window_2:"Editor Window 2",slot_window_3:"Editor Window 3",slot_window_4:"Editor Window 4"};

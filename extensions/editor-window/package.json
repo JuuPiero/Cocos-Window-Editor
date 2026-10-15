@@ -7,56 +7,103 @@
     "editor": ">=3.8.6",
     "scripts": {
         "preinstall": "node ./scripts/preinstall.js",
-        "build": "npx tsc"
+        "build": "tsc && node ./scripts/build.js",
+        "watch": "node ./scripts/build.js --watch",
+        "typecheck": "tsc",
+        "test": "node ./tests/run.js",
+        "preview": "node ./tests/preview/build.js"
     },
     "description": "i18n:editor-window.description",
     "main": "./dist/main.js",
-    "dependencies": {
-        "vue": "^3.1.4",
-        "fs-extra": "^10.0.0"
-    },
     "devDependencies": {
         "@cocos/creator-types": "^3.8.6",
-        "@types/fs-extra": "^9.0.5",
         "@types/node": "^18.17.1",
-        "typescript": "^5.8.2"
+        "esbuild": "^0.24.2",
+        "typescript": "^5.8.2",
+        "vue": "^3.3.4"
     },
     "panels": {
         "default": {
-            "title": "editor-window Default Panel",
+            "title": "i18n:editor-window.slot_default",
             "type": "dockable",
-            "main": "dist/panels/default",
-            "size": {
-                "min-width": 400,
-                "min-height": 300,
-                "width": 1024,
-                "height": 600
-            }
+            "main": "dist/panels/default.js",
+            "size": { "min-width": 240, "min-height": 160, "width": 420, "height": 560 }
+        },
+        "window-2": {
+            "title": "i18n:editor-window.slot_window_2",
+            "type": "dockable",
+            "main": "dist/panels/window-2.js",
+            "size": { "min-width": 240, "min-height": 160, "width": 420, "height": 560 }
+        },
+        "window-3": {
+            "title": "i18n:editor-window.slot_window_3",
+            "type": "dockable",
+            "main": "dist/panels/window-3.js",
+            "size": { "min-width": 240, "min-height": 160, "width": 420, "height": 560 }
+        },
+        "window-4": {
+            "title": "i18n:editor-window.slot_window_4",
+            "type": "dockable",
+            "main": "dist/panels/window-4.js",
+            "size": { "min-width": 240, "min-height": 160, "width": 420, "height": 560 }
         }
     },
     "contributions": {
         "menu": [
             {
-                "path": "i18n:menu.panel/editor-window",
+                "path": "i18n:menu.panel",
                 "label": "i18n:editor-window.open_panel",
                 "message": "open-panel"
-            },
-            {
-                "path": "i18n:menu.develop/editor-window",
-                "label": "i18n:editor-window.send_to_panel",
-                "message": "send-to-panel"
             }
         ],
         "messages": {
-            "open-panel": {
-                "methods": [
-                    "openPanel"
-                ]
+            "open-panel": { "methods": ["openPanel"] },
+            "open-window": { "methods": ["openWindow"] },
+            "windows-changed": { "methods": ["windowsChanged"] },
+            "query-windows": { "methods": ["queryWindows"] },
+            "slot-info": { "methods": ["slotInfo"] },
+            "assign-slot": { "methods": ["assignSlot"] },
+            "save-state": { "methods": ["saveState"] },
+            "release-slot": { "methods": ["releaseSlot"] },
+            "close-slot": { "methods": ["closeSlot"] },
+            "slot-changed": {
+                "methods": ["default.onSlotChanged", "window-2.onSlotChanged", "window-3.onSlotChanged", "window-4.onSlotChanged"]
             },
-            "send-to-panel": {
-                "methods": [
-                    "default.hello"
-                ]
+            "windows-updated": {
+                "methods": ["default.onWindowsUpdated", "window-2.onWindowsUpdated", "window-3.onWindowsUpdated", "window-4.onWindowsUpdated"]
+            },
+            "editor-window:repaint": {
+                "methods": ["default.onRepaint", "window-2.onRepaint", "window-3.onRepaint", "window-4.onRepaint"]
+            },
+            "selection:select": {
+                "methods": ["default.onSelection", "window-2.onSelection", "window-3.onSelection", "window-4.onSelection"]
+            },
+            "selection:unselect": {
+                "methods": ["default.onSelection", "window-2.onSelection", "window-3.onSelection", "window-4.onSelection"]
+            },
+            "scene:change-node": {
+                "methods": ["default.onSceneChanged", "window-2.onSceneChanged", "window-3.onSceneChanged", "window-4.onSceneChanged"]
+            },
+            "scene:ready": {
+                "methods": ["default.onSceneChanged", "window-2.onSceneChanged", "window-3.onSceneChanged", "window-4.onSceneChanged"]
+            },
+            "asset-db:asset-add": {
+                "methods": ["default.onAssetsChanged", "window-2.onAssetsChanged", "window-3.onAssetsChanged", "window-4.onAssetsChanged"]
+            },
+            "asset-db:asset-change": {
+                "methods": ["default.onAssetsChanged", "window-2.onAssetsChanged", "window-3.onAssetsChanged", "window-4.onAssetsChanged"]
+            },
+            "asset-db:asset-delete": {
+                "methods": ["default.onAssetsChanged", "window-2.onAssetsChanged", "window-3.onAssetsChanged", "window-4.onAssetsChanged"]
+            }
+        },
+        "scene": {
+            "script": "./dist/scene.js"
+        },
+        "asset-db": {
+            "mount": {
+                "path": "./assets",
+                "readonly": false
             }
         }
     }
