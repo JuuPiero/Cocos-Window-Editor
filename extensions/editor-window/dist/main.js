@@ -97,7 +97,12 @@ function applyMenus() {
       menus = [];
       for (let w of windows) {
         let spot = menuSpot(w.menu, w.title);
-        menu.add(spot.path, { label: spot.label, message: "open-window", target: PKG, params: [w.id] }), menus.push(spot);
+        menu.add(spot.path, {
+          label: spot.label,
+          // Main-menu items take a MessageInfo object ({ target, name }), not package.json's string form.
+          message: { target: PKG, name: "open-window", params: [w.id] },
+          click: () => methods.openWindow(w.id)
+        }), menus.push(spot);
       }
       menu.apply();
     } catch (e) {
