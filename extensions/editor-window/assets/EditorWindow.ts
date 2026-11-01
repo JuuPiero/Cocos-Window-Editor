@@ -184,7 +184,7 @@ export function editorWindow(menuOrOptions: string | WindowOptions = {}) {
 
 /** All registered windows. */
 export function listWindows(): WindowInfo[] {
-    return [...registry().windows.values()].map((e) => ({ id: e.id, menu: e.options.menu || '', title: windowTitle(e.id, e.options) }));
+    return Array.from(registry().windows.values()).map((e) => ({ id: e.id, menu: e.options.menu || '', title: windowTitle(e.id, e.options) }));
 }
 
 // -------------------------------------------------------------------- GUI
@@ -531,8 +531,8 @@ function encode(v: any, depth: number): any {
     if (v instanceof Component) return v.isValid ? { __comp: v.uuid } : null;
     if (v instanceof Asset) return { __asset: v.uuid };
     if (Array.isArray(v)) return v.map((x) => encode(x, depth + 1)).map((x) => (x === SKIP ? null : x));
-    if (v instanceof Map) return { __map: [...v].map(([k, x]) => [encode(k, depth + 1), encode(x, depth + 1)]).filter(([k, x]) => k !== SKIP && x !== SKIP) };
-    if (v instanceof Set) return { __set: [...v].map((x) => encode(x, depth + 1)).filter((x) => x !== SKIP) };
+    if (v instanceof Map) return { __map: Array.from(v).map(([k, x]) => [encode(k, depth + 1), encode(x, depth + 1)]).filter(([k, x]) => k !== SKIP && x !== SKIP) };
+    if (v instanceof Set) return { __set: Array.from(v).map((x) => encode(x, depth + 1)).filter((x) => x !== SKIP) };
     const proto = Object.getPrototypeOf(v);
     if (proto !== Object.prototype && proto !== null) return SKIP; // class instances keep their constructor value
     const out: Record<string, any> = {};
